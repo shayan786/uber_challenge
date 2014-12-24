@@ -25,6 +25,7 @@ Stack / Technologies Used
 * Deployed using AWS Elastic Beanstalk
 * DB: Postgresql (Look at db/schema.rb for entire db structure)
 * Storage: AWS S3
+* Payments: Stripe & Paypal
 * Please refer to included Gemfile to see other technologies used in this appication
 
 
