@@ -32,7 +32,7 @@ These technolgies were used since they have been proven to work well with scalab
 
 Whats Included & Why
 --------------------
-For obvious reasons the entire application cannot be made public. However I have included one look into the * Adventure* MVC pipeline. 
+For obvious reasons the entire application cannot be made public. However I have included one look into the *Adventure* MVC pipeline. 
 
 This includes:
 * Model - with its methods
