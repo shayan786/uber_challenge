@@ -25,7 +25,7 @@ Stack / Technologies Used
 * Deployed using AWS Elastic Beanstalk
 * DB: Postgresql (Look at db/schema.rb for entire db structure)
 * Storage: AWS S3
-* Please Refer to Included Gemfile to see other technologies used in this appication
+* Please refer to included Gemfile to see other technologies used in this appication
 
 
 These technolgies were used since they have been proven to work well with scalability and the community that supports them is large and growing. Also, I had never used RoR before, and this was a great way to learn this framework.
