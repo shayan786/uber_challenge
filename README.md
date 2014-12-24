@@ -23,7 +23,7 @@ Stack / Technologies Used
 * JQuery
 * Other inhouse + opensource javascript libraries
 * Deployed using AWS Elastic Beanstalk
-* DB: Postgresql
+* DB: Postgresql (Look at db/schema.rb for entire db structure)
 * Storage: AWS S3
 * Please Refer to Included Gemfile to see other technologies used in this appication
 
