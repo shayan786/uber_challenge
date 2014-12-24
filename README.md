@@ -39,10 +39,11 @@ This includes:
 * Controller
 * View (index, show, and various js responses)
 
-About Me
---------
+Contact Me
+----------
 Feel free to reach out to me at shayan@advlo.com if you have further questions or want to setup a more detailed dive into the entire application infastracture if this does not suffice.
 
 Thanks & look forward to hearing from you!
+
 Shayan
 
