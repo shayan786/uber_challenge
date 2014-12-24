@@ -1,0 +1,826 @@
+#adventure_create {
+	padding-top: 80px;
+
+	.container {
+
+		.panel {
+
+			.panel-heading {
+				font-size: 1.6em;
+				background-color: #FFF;
+
+
+				.nav {
+					padding-left: 40px;
+				}
+			}
+
+			li {
+				float: left;
+			}
+
+			.section_header {
+				font-size: 2.2em;
+				background-color: $lighter_gray
+			}
+
+			.create_steps_header {
+				border: none;
+			}
+
+			.fa {
+				padding-top: 15px;
+				padding-left: 15px;
+				padding-right: 15px;
+			}
+			
+			.pricing-bottom {
+				position: relative;
+				float: left;
+				width: 100%;
+
+				.price-calculator {
+					position: relative;
+					float: left;
+					width: 100%;
+					margin-top: 10px;
+
+					.calc {
+						width: 50%;
+						text-align: right;
+						float: left;
+					}
+
+					.calc-title {
+						float: left;
+						width: 100%;
+						font-weight: bold;
+					}
+
+					.answer {
+						width: 47%;
+						text-align: left;
+						float: right;
+						margin-left: 3%;
+					}
+				}
+
+				.feature-list {
+					position: relative;
+					float: left;
+					padding-left: 25px;
+					padding-top: 5px;
+
+					.fa {
+						padding-left: 0px;
+					}
+
+					.fa-check:before {
+						margin-right: 10px;
+						color: $advlo_orange;
+						opacity: 0.7;					
+					}
+
+					.extra:before {
+						color: $advlo_green;
+						opacity: 1.0;
+					}
+				}
+			}
+
+			.divider-wrapper {
+				position: relative;
+				float: left;
+				width: 100%;
+
+				.divider {
+					position: relative;
+					width: 80%;
+					margin: 0 auto;
+					height: 1px; 
+					margin-top: 5px;
+					margin-bottom: 5px;
+					background-color: rgba(0,0,0,0.3);
+				}
+			}
+
+			.learn-more {
+				position: relative;
+				float: left;
+				width: 100%;
+				text-align: center;
+				margin-top: 15px;
+				margin-bottom: 15px;
+			}
+			.form_label {
+				padding-top: 5px;
+				font-size: 1.2em;
+				font-weight: bold;
+			}
+
+			.radio-inline {
+				padding-top: 8px;
+			}
+
+			#adv_cap_min, #adv_cap_max, #adv_duration_num {
+				text-align: center !important;
+			}
+
+			.location_map {
+				height: 300px;
+				width: auto;
+				margin-bottom: 20px;
+			}
+
+			.panel-footer {
+				background-color: $white;
+
+				.preview_btn {
+					font-size: 1.8em;
+					background-color: $login_btn_color;
+					border-color: $login_btn_color;
+					padding: 10px 20px;
+
+					&:hover {
+						background-color: $login_btn_color_hover;
+						border-color: $login_btn_color_hover;
+					}
+				}
+
+				.view_btn {
+					font-size: 1.8em;
+					padding: 10px 20px;
+
+					.fa {
+						padding-top: 0px;
+						padding-left: 0px;
+						padding-right: 10px;
+						color: #000;
+					}
+				}
+			}
+		}
+	}
+
+	//PHOTOS
+	#adv_photos {
+
+		.panel {
+			.panel-body {
+				min-height: 500px;
+			}
+
+		}
+
+		.bootstrap-filestyle {
+			margin: 10px auto 0px auto;
+
+			.btn {
+				font-size: 1.2em;
+				padding: 10px 30px;
+
+				&:hover {
+
+				}
+			}
+		}
+
+		.divider {
+			border: 1px solid $lighter_gray;
+			margin: 20px 0;
+		}
+
+		img {
+			margin: 0px auto;
+		}
+
+		.img_del_btn {
+			margin-top: 5px;
+			margin-bottom: 15px;
+			padding: 5px 10px 5px 10px;
+			background-color: $login_btn_color;
+			border-color: $login_btn_color;
+
+			.fa {
+				padding: 0px;
+				color: $white;
+				font-size: 1.4em;
+			}
+
+			&:hover {
+				background-color: $login_btn_color_hover;
+				border-color: $login_btn_color_hover;;
+			}
+		}
+
+		.how_to {
+			padding: 7px 10px;
+			font-size: 1em;
+			
+		}
+
+	}
+
+	//ITINERARY
+	#adv_itinerary {
+
+		.panel {
+			.panel-body {
+				min-height: 500px;
+			}
+		}
+
+		.update_notice {
+
+		}
+
+		.add_event_btn {
+			margin-top: 10px;
+			margin-bottom: 15px;
+			padding: 10px 15px;
+
+			.fa {
+				margin-right: 10px;
+				padding: 0px;
+				color: $white;
+			}
+
+		}
+
+		.divider {
+			border: 1px solid $lighter_gray;
+			margin: 15px 0;
+		}
+
+		.how_to {
+			padding: 7px 10px;
+			font-size: 1em;
+		}
+
+	}
+
+	//SCHEDULE
+	#adv_schedule {
+
+		.btn_res {
+			background-color: $advlo_orange;
+			border-color: $advlo_orange;
+			color: white;
+			opacity: 1;
+		}
+
+		.btn_ib {
+			background-color: #3a87ad;
+			border-color: #3a87ad;
+			color: white;
+			opacity: 1;
+		}
+
+		.how_to {
+			padding: 5px 5px;
+			font-size: 1em;
+		}
+
+	}
+
+	//PAYMENT
+	#adv_payment {
+		.panel-body {
+			min-height: 500px;
+		}
+
+		.option_btn_1, .option_btn_2 {
+			margin-top: 20px;
+			padding: 0px;
+
+			.percent {
+				font-family: bebas_neue_book;
+				font-size: 1.6em;	
+				letter-spacing: 3px;
+			}
+
+
+			.pricing-top {
+				position: relative;
+				float: left;
+				width: 100%;
+				height: 100%;
+				background: rgba(0,0,0,0.9);
+				color: #fff;
+
+				.pricing-title {
+					font-family: bebas_neue_book;
+					font-size: 1.7em;	
+					margin-top: 20px;
+				}
+
+				.prices {
+					font-family: bebas_neue_book;
+					font-size: 3.5em;	
+				}
+				.price-type {
+					margin-bottom: 10px;
+				}
+			}
+
+			.text {
+				font-family: nexa_light;
+				font-weight: bold;
+				font-size: 18px;
+			}
+			.text-half {
+				width: 45%; 
+				float: left;
+			}
+			.and-sign {
+				width: 4%;
+				position: relative;
+				float: left;
+				top: 24px;
+				font-size: 16px;
+			}
+		}
+
+		.or_text {
+			margin-top: 200px;
+			font-size: 2.8em;
+			font-family: bebas_neue_book;
+			letter-spacing: 3px;
+			font-weight: bold;
+		}
+
+
+		.subscribe_btn_1, .subscribe_btn_2 {
+			margin-top: 30px !important;
+			text-align: center;
+			width: 150px;
+			height: 125px;
+
+			img {
+				position: relative;
+				width: 75px;
+				margin-top: 20px;
+			}
+
+			.fa-share-square-o {
+				margin-top: 15px;
+				font-size: 50px !important;
+				color: #545454 !important;
+			}
+
+			@extend .option_btn_1;
+
+			.text {
+				font-family: cabin_bold !important;
+				font-size: 1.0em !important;
+			}
+
+			.fa {
+				color: $advlo_orange;
+				font-size: 1.6em;
+			}
+		}
+
+		#subscription-tree{
+			display: block;
+			position: relative;
+			float: left;
+			display: none;
+		}
+
+
+		#commission-tree{
+			display: block;
+			position: relative;
+			float: left;
+			display: none;
+		}
+
+		.option_1_well {
+			margin-top: 30px;
+			padding: 10px 30px;
+			float: left;
+
+			.header {
+				font-size: 1.3em;
+			}
+
+
+			#default-use-bank {
+				margin-top: 25px;
+				margin-bottom: 15px;
+			}
+		}
+
+		.option_2_well {
+			@extend .option_1_well;
+
+			.dollar {
+				font-family: bebas_neue;
+				font-size: 2.6em;	
+				letter-spacing: 2px;
+			}
+
+			.text {
+				font-family: nexa_light;
+				font-weight: bold;
+				font-size: 0.8em;
+			}
+
+			#subscription_payment_form_1, #subscription_payment_form_2  {
+				display: none;
+				margin-top: 20px !important;
+
+				.amount_warning {
+					margin-bottom: 10px;
+
+					.subscription_cost{
+						font-weight: bold;
+					}
+				}
+
+				.form_label {
+					font-size: 1.0em;
+				}
+
+				.cc_icon {
+				    padding-top: 5px;
+				    padding-right: 5px;
+				    float: left;
+
+				    img {
+				      width: 40px;
+				      cursor: default;
+				    }
+  				}
+			}
+		}
+
+		.subscribed_well {
+			.subscription_text {
+				font-family: nexa_light;
+				font-weight: bold;
+				font-size: 2.8em;
+			}
+
+			.cancel_link {
+				cursor: pointer;
+			}
+
+			.cancel_subscription_btn {
+				display: none;
+				.fa {
+					color: #FFF;
+					padding: 0 !important;
+					margin-right: 5px;
+				}
+			}
+		}
+
+		.check_img {
+			margin: 10px auto 0 auto;
+		}
+
+		.glyphicon {
+		  margin-bottom: 40px;
+		  margin-top: 25px;
+		  font-size: 35px;
+		  margin-left: -55px;
+
+		  span {
+		  	font-size: 16px;
+		  }
+		}
+		.fa-credit-card {
+			color: #000 !important;
+			font-size: 32px !important;
+
+			padding-top: 30px !important;
+			padding-left: 20px !important;
+			padding-right: 15px !important;
+			position: absolute !important;
+		}
+		.fa-university{
+			color: #000 !important;
+			font-size: 32px !important;
+			margin-top: 30px;
+		}
+		.fa-paypal {
+			@extend .fa-university;
+		}
+
+		#add-bank-form {
+			display: none;
+		}
+		
+		#add-bank {
+			margin-top: 35px;
+  			cursor: pointer;
+			text-align: center;
+			width: 150px;
+			height: 125px;
+		}
+
+		#add-card {
+			margin-top: 25px;
+		  cursor: pointer;
+		  text-align: center;
+		}
+
+		#add-paypal {
+			margin-top: 35px;
+			text-align: center;
+			cursor: pointer;
+			width: 150px;
+			height: 125px;
+
+			.glyphicon {
+				padding-left: 35px;
+			}
+
+			img {
+				width: 110px;
+				height: auto;
+				margin-top: 15px;
+			}
+		}
+
+		#existing-paypal {
+			display: none;
+		}
+
+		#add_paypal_form {
+			display: none;
+			margin-top: 15px; 
+		}
+
+		#update_paypal_form {
+			display: none;
+		}
+
+		#add-card-form {
+			display: none;
+		}
+		#updated-bank-form {
+			display: none;
+
+			.bank_change_btn {
+				margin-top: 15px;
+				margin-bottom: 25px;
+			}
+		}
+
+		#change_bank_form {
+			margin-top: 35px;
+			display: none;
+		}
+
+		.save {
+			margin: 0 auto;
+			text-align: center;
+			margin-top: 20px;
+			margin-bottom: 20px;
+			.btn {
+				margin: 0 auto;
+				width: 175px;
+
+			}
+		}
+
+		.prefill_label {
+			padding-top: 5px;
+			font-size: 1.2em;
+		}
+	}
+
+	//PUBLISH
+	#adv_publish {
+		.panel-body {
+			min-height: 350px;
+		}
+
+		.how_to {
+			h3 {
+				font-family: 'nexa_light' !important;
+				margin-top: 0px;
+			}
+		}
+
+		#new_phone_number_form{
+			margin-top: 15px;
+		}
+
+		#update_phone_number_form {
+			display: none;
+			margin-top: 15px;
+		}
+
+		.prefill_label {
+			padding-top: 5px;
+			font-size: 1.2em;
+		}
+
+		#waiver_new {
+
+			#upload_waiver {
+				display: none;
+				margin-top: 15px;
+			}
+			.waiver-info {
+				margin-top: 20px;
+			}
+
+			#update_waiver {
+				display: none;
+			}
+
+			.waiver-margin {
+				margin-top: 20px;
+				margin-bottom: 10px;
+			}
+
+			.waiver-on-file{
+				margin-bottom: 0px !important;
+				margin-top: 20px;
+			}
+			.waiver-btn-row {
+				position: relative;
+				width: 245px;
+				height: 75px;
+				margin: 0 auto;
+
+				.waiver-btn {
+					float: left;
+					margin: 20px;
+				}
+			}
+		}
+	}
+	.complete-button{
+		width: 33%;
+		float: left;
+	}
+
+	#preview {
+		text-align: right;
+	}
+	#publish-new {
+		text-align: center;
+	}
+
+	#publish-continue {
+		text-align: left;
+	}
+	.publish-adventure {
+		font-size: 25px;
+	}
+}
+
+.waiver-view-wrapper {
+	margin-top: 25px;
+	width: 100%;
+	position: relative;
+	float: left;
+	
+	.glyphicon-download {
+		font-size: 24px;
+		left: 12px;
+		color: #fff;
+		top: -6px;
+		left: -300px;
+	}
+
+	.waiver-text {
+		float: left;
+		position: relative;
+		font-size: 22px;
+		font-family: 'nexa_light';
+		color: #fff;
+		width: 300px;
+		left: 30px;
+	}
+}
+
+#location-map {
+	margin: 35px;
+}
+
+.pac-container:after {
+	content: none !important;
+}
+
+.pac-container {
+	z-index: 9999;
+	position: fixed;
+}
+@media screen and (max-width: 991px){
+	.payout-buttons-row  {
+		width: 100%;
+		margin: 0 auto;
+	}
+
+	#adventure_create .complete-button {
+		width: 100%;
+		text-align: center !important;
+	}
+
+	#publish-continue {	
+		margin-top: 15px;
+	}
+	#publish-new {	
+		margin-top: 15px;
+	}
+
+	.option_btn_1 {
+		width: 100%;
+	}
+	.option_btn_2 {
+		width: 100%;
+	}
+
+	#adventure_create #adv_payment  {	
+		#commission-tree {
+			position: relative;
+			width: 100%;
+			float: left;
+		}
+		#subscription-tree {
+			position: relative;
+			width: 100%;
+			float: left;
+		}
+
+		.option_2_well {
+			width: 100%;
+		}
+		.option_1_well {
+			width: 100%;
+		}
+
+		.or_text {
+			margin-top: 20px !important;
+		}
+
+		#add-bank {
+			width: 50%;
+			float: left;
+			padding-top: 25px;
+		}
+		#add-paypal {
+			width: 50%;
+			float: left;
+			padding-top: 25px;
+		}
+		.subscribe_btn_1 {
+			width: 50%;
+			float: left;
+			margin-top: 25px;
+
+			img {
+				width: 80%;
+				margin-top: 10px;
+			}
+		}
+		.subscribe_btn_2 {
+			width: 50%;
+			float: left;
+			margin-top: 25px;
+		}
+	}
+}
+
+@media screen and (max-width: 780px){ 
+	#adventure_create .panel-footer .view_btn {
+		font-size: 1.1em !important;
+		margin-bottom: 15px !important;
+	}
+	#adventure_create .panel-footer .preview_btn {
+		font-size: 1.1em !important;
+	}
+
+	#adventure_create #adv_publish .well {
+		text-align: center;
+	}
+
+	#preview {	
+		margin-bottom: -15px !important;
+	}
+	.publish-adventure {
+		font-size: 15px !important; 
+	}
+
+	#adventure_create #adv_payment #existing-paypal {
+		text-align: center;
+
+		.edit-label {
+			text-align: center !important;
+		}
+	}
+}
+
+@media screen and (max-width: 500px){ 
+	.pricing-bottom {
+		display: none;
+	}
+
+}

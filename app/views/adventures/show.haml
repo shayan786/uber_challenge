@@ -1,0 +1,189 @@
+- render partial: 'adventure_seo_tags'
+
+.adventure-show-container.col-md-12{:itemscope => true, :itemtype => "http://schema.org/Thing"}
+  #adventure-title
+    .rich-snippet{itemprop: 'image', src: @adventure.attachment.url(:thumb)}
+    .rich-snippet{itemprop: 'url', href: "http://advlo.com/adventures/#{@adventure.slug}"}
+
+    #main_image{style: "background-image: url('#{@adventure.attachment.url(:hero)}')"}
+
+
+  .col-md-3.adventure-show-infographic
+    -if @current_guide
+      .guide-block
+        .adv-title{itemprop: 'name'}
+          - if @adventure.title.length > 25
+            .shortened= @adventure.title
+          - else
+            = @adventure.title
+        .guide-name
+          = link_to @current_guide.get_abbreviated_name, user_path(@current_guide)
+        .guide-profile-image
+          %a{href: user_path(@current_guide)}
+            - if @current_guide.avatar.height && @current_guide.avatar.height(:medium) >= 160
+              - profile_img = @current_guide.avatar.url(:medium)
+            - elsif @current_guide.avatar.height && @current_guide.avatar.height(:medium) < 160
+              - profile_img = @current_guide.avatar.url(:large)
+            - else
+              - profile_img = "#{@current_guide.avatar_url}?type=large"
+
+            .image-wrapper{style: "background: url('#{profile_img}') no-repeat center center;"}
+
+
+      .adventure-block
+        #adventure-reviews-count
+          - if @adventure.title.length > 25
+            .add_space
+          - review_count = Review.where(adventure_id: @adventure.id).count
+          - case review_count
+          - when 0
+            //%em= "No Reviews"
+          - when 1
+            / %input{id: "adv_rating_value", type: "hidden", "data-adv-rating"=>@adventure.rating}
+            %input{id: "adv_rating_show", value: @adventure.rating}
+            .review-count
+              %em= "#{review_count} Review"
+
+          - else
+            %input{id: "adv_rating_show", value: @adventure.rating}
+            .review-count
+              %em= "#{review_count} Reviews"
+
+        #adventure-price
+          - if current_user && current_user.credit > 0 && @adventure.price >= 50
+            %span.old_price{style: "text-decoration: line-through;"}= "$ #{@adventure.price}"
+            %span.new_price= "$ #{(@adventure.price - current_user.credit).to_i}"
+          - else
+            %span= "$ #{@adventure.price}"
+
+        -if !@adventure.approved || @current_guide == current_user
+          #book-it.btn.btn-success.disabled{"data-target" => "#event-modal", "data-toggle" => "zl"} 
+            %span 
+              BOOK IT
+        -else
+          - if @adventure.is_subscribed_and_has_redirect_url?
+            %a#book-it.btn.btn-success{href: "#{@adventure.subscription_redirect_url}", target: "_blank"}
+              %span 
+                BOOK IT
+          - else
+            #book-it.btn.btn-success{"data-target" => "#event-modal", "data-toggle" => "modal"} 
+              %span 
+                BOOK IT
+
+    - else
+      .guide-block
+        .guide-name
+          Want to guide this adventure?
+        .guide-profile-image
+          = image_tag 'missing.png'
+
+  .adventure-copy-wrapper
+    - flash.each do |key, value|
+      .alert-warning.adv-show-alert.text-center
+        %button.close{"data-dismiss" => "alert", type: "button", style: "left: 50px; position: absolute; font-size: 2.5em; top: 3px;"}
+          %span{"aria-hidden" => "true"} ×
+          %span.sr-only Close
+        = value.html_safe
+    .row
+      .col-md-12#mobile-adventure-infographic.text-center
+        .navigation-brick
+          .guide-block
+            #adventure-title-mobile
+              = @adventure.title
+            .guide-name
+              = link_to @current_guide.name, user_path(@current_guide)
+            
+            %a{href: user_path(@current_guide)}
+              .guide-profile-image{style: "background: url(#{@current_guide.get_avatar_url('large')}) no-repeat center center;"}
+              
+
+            .adventure-block.col-sm-12.text-center
+              #adventure-price
+                - if current_user && current_user.credit > 0 && @adventure.price >= 30
+                  %span.old_price{style: "text-decoration: line-through;"}= "$ #{@adventure.price}"
+                  %span.new_price= "$ #{(@adventure.price - current_user.credit).to_i}"
+                - else
+                  %span= "$ #{@adventure.price}"
+                  
+              -if !@adventure.approved || @current_guide == current_user
+                #book-it.btn.btn-success.disabled{"data-target" => "#event-modal", "data-toggle" => "zl"} 
+                  %span 
+                    BOOK IT
+              -else
+                - if @adventure.is_subscribed_and_has_redirect_url?
+                  %a#book-it.btn.btn-success{href: "http://#{@adventure.subscription_redirect_url}", target: "_blank"}
+                    %span 
+                      BOOK IT
+                - else
+                  #book-it.btn.btn-success{"data-target" => "#event-modal", "data-toggle" => "modal"} 
+                    %span 
+                      BOOK IT
+
+    .row.information-container
+      #overview.title-brick
+        = render partial: 'overview'
+
+      - if @adventure.itineraries.count > 0
+        #itinerary.title-brick.dark_gray_background
+          = render partial: 'itinerary'
+
+      #gallery.title-brick
+        = render partial: 'gallery'
+
+      
+      - if @adventure.video_url != nil && @adventure.video_url != ''
+        .col-md-7.offset-13
+          .adventure-video-wrapper
+            = raw(@adventure.embed(@adventure.video_url))
+      
+      = render partial: 'payment_modal'
+              
+      - if !@adventure.other_notes.empty?
+        #additional_info.title-brick.dark_gray_background
+          = render partial: 'additional_info'
+
+      #adv_map.title-brick
+        = render partial: 'adv_map'
+
+      #host_bio.title-brick.dark_gray_background
+        = render partial: 'host_bio'
+        #payment_panel.title-brick
+          = render partial: 'payment_panel'
+
+      - if @adventure.approved
+        #reviews.title-brick
+          = render partial: 'reviews'
+
+      #adventure_browse.title-brick.dark_gray_background
+        = render partial: 'adventure_browse'
+                
+
+    .col-md-3#desktop-adventure-nav
+      .navigation-brick
+        %a{href: '#overview'}
+          .item
+            %span overview
+        - if @adventure.itineraries.count > 0
+          %a{href: '#itinerary'}
+            .item
+              %span itinerary
+        %a{href: '#gallery'}
+          .item
+            %span gallery
+        %a{href: '#additional_info'}
+          .item
+            %span additional info
+
+
+:javascript
+  adventureShow();
+  getStripeToken();
+  getStripeToken_request();
+  reservation_request_prefill();
+  reservation_modals_show_hide();
+  resizeAdventureShowImage();
+
+  $(window).resize(function(){
+    sizeSidebar();
+    resizeAdventureShowImage();
+  })

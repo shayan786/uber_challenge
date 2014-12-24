@@ -1,0 +1,13 @@
+.container
+  //.brick-icons= image_tag "location.png"
+  .brick-title 
+    RELATED ADVENTURES
+
+.col-md-9
+  .shared-slider-container#adventure.adventure-slider-wrapper
+    = render partial: '/adventures/adventure_slider_slides', locals: {adventures: @related}
+      
+
+
+:javascript
+  masonrySetup();

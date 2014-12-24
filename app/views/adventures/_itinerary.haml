@@ -1,0 +1,14 @@
+.container.itinerary-wrapper
+  //.brick-icons= image_tag 'map.png'
+  .brick-title
+    ITINERARY
+  .col-md-9
+    - if @itineraries
+      - @itineraries.order('id ASC').each do |itin| 
+        .copy-brick.itinerary-brick
+          .fa.fa-plus
+          .fa.fa-minus
+          .headline
+            = itin.headline
+          .description
+            = itin.description.gsub(/\n/, '<br/>').html_safe

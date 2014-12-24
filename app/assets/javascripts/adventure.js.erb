@@ -1,0 +1,1704 @@
+function resizeAdventureShowImage(){
+  if($(window).width() > 991){
+    $('#main_image').css({
+      height: $(window).height()*0.83
+    });
+  }else if ($(window).width() > 700){
+    $('#main_image').css({
+      height: 500
+    });
+  } else if ($(window).width() > 600){
+    $('#main_image').css({
+      height: 400
+    });
+  } else {
+    $('#main_image').css({
+      height: 300
+    });
+  }
+}
+
+function positionLocationText(){
+  $(document).ready(function(){
+    $('#hero_image').css({
+      height: '600px'
+    });
+    if($(window).width() > 750){
+      if($('#location_text').height() > 150){
+        $('#location_text').css('top', ($('#hero_image').height() / 3));
+      } else {
+        $('#location_text').css('top', ($('#hero_image').height() / 1.75));
+      }
+    } else {
+      $('#location_text').css('text-shadow','-1px -1px 0px #000;')
+      if($('#location_text').height() > 50){
+        $('#location_text').css('top', ($('#hero_image').height() / 1.75));
+      } else {
+        $('#location_text').css('top', ($('#hero_image').height() / 1.55));
+      }
+    }
+  })
+}
+
+function heroScroll(){
+  var hero = $('#hero_image');
+  var heroFont = $('#location_text');
+  var hero_dark = $('#hero_image_darken')
+  $(window).scroll(function(){
+    var s = $(window).scrollTop();
+    hero.css('-webkit-transform','translateY(' + (s/2) + 'px');
+    heroFont.css('-webkit-transform','translateY(' + (s/3) + 'px');
+    heroFont.css({'opacity' : (1 - s/500)});
+    hero_dark.css({'opacity' : s/500 });
+  })
+}
+
+function adventureScroll(){
+  var hero = $('#main_image');
+    $(window).scroll(function(){
+    var s = $(window).scrollTop();
+    hero.css('-webkit-transform','translateY(' + (s/1.3) + 'px');    
+  })
+}
+
+function toggleItineraryItemsAndArrows(){
+  $('#profile-next').addClass('adventure-show-arrow-right')
+  $('#profile-prev').addClass('adventure-show-arrow-left')
+
+  $('.itinerary-brick').click(function(){
+    $(this).children().last().toggle();
+    $(this).children().first().toggle();
+    $(this).children().first().next().toggle();
+  })
+  $('.itinerary-brick').first().click()
+  $('.itinerary-brick').last().css('border-bottom','none')
+}
+
+function highlightFilters(){
+  var num_cat = $('.filter-container ul li').length;
+  var i = 0;
+  var filter_li_name;
+}
+
+function adventureHover(){
+  $('.adventure-brick').hover(function(){
+    $(this).find($('.hover-block')).stop(true).show()
+    $(this).stop(true).css('border','1px solid #000')
+  }, function(){
+    $(this).stop(true).css('border','none')
+    $(this).find($('.hover-block')).stop(true).fadeOut()
+  })
+}
+
+function masonrySetup(){
+  $('.js-masonry').masonry({
+    isFitWidth: true,
+    itemSelector: '.adventure-brick'
+  })
+}
+
+
+function widthOfBrowser(){
+  var windowWidth = $(window).width();
+  if( windowWidth > 1090 ){
+    return 240;
+  }else if( windowWidth > 1060){
+    return 230;
+  }else if( windowWidth > 1040){
+    return 220;
+  }else if( windowWidth > 1020){
+    return 213;
+  }else if( windowWidth > 1000){
+    return 190;
+  }else if( windowWidth > 900){
+    return 175;
+  }
+}
+
+function sizeSidebar(){
+  $(document).ready(function(){
+    var navWidth = $('.navigation-brick').last().width();
+    $('.adventure-show-infographic').width( navWidth - 30);
+
+    if($(window).height() < 705){
+      $('.navigation-brick').last().hide();
+    }
+  })
+}
+
+function navigationBreadcrumbs(){
+  $(document).ready(function() {
+    $('a[href*=#]:not([href=#])').click(function() {
+      if (location.pathname.replace(/^\//,'') == this.pathname.replace(/^\//,'') && location.hostname == this.hostname) {
+        var target = $(this.hash);
+        target = target.length ? target : $('[name=' + this.hash.slice(1) +']');
+        if (target.length) {
+          $('html,body').animate({
+            scrollTop: target.offset().top-77
+          }, 1000);
+          return false;
+        }
+      }
+    });
+  });
+}
+
+function centerProfileImage(){
+  $('.guide-image').each(function(){
+    var imageWidth = $(this).find('img').width();
+    if( imageWidth > 300){
+      $(this).find('img').css('margin-left','-40%');
+    }else if(imageWidth > 250){
+      $(this).find('img').css('margin-left','-20%');
+    }else if(imageWidth > 200){
+      $(this).find('img').css('margin-left','-10%');
+    }
+  })
+}
+
+function centerGuideImage(){
+  $(window).load(function(){
+    $('.guide-profile-image').each(function(){
+      var imageWidth = $(this).find('img').width();
+      if( imageWidth > 300){
+        $(this).find('img').css('margin-left','-50%');
+      }else if(imageWidth > 250){
+        $(this).find('img').css('margin-left','-20%');
+      }else if(imageWidth > 200){
+        $(this).find('img').css('margin-left','-10%');
+      }
+    })
+  })
+}
+
+function galleryMasonry(){
+  $('#gallery-masonry-container').imagesLoaded(function(){
+    $('#gallery-masonry-container').masonry({
+      isFitWidth: true,
+      itemSelector: '.gallery-image',
+    });
+  })
+}
+
+function show_change_bank_form() {
+  $('.bank_change_btn').click(function() {
+    $('#change_bank_form').fadeToggle();
+  });
+}
+
+function input_geocomplete() {
+  var adv_location = $('#adventure_edit_form #adv_location').val();
+
+  if (adv_location) {
+    $('#adventure_edit_form #adv_location').geocomplete({
+      map: "#adventure_edit_form .location_map",
+      location: adv_location,
+      details: "#adventure_edit_form",
+      detailsAttribute: "data-geo"
+    })
+  }
+  else {
+    $('#adventure_edit_form #adv_location').geocomplete({
+      map: "#adventure_edit_form .location_map",
+      details: "#adventure_edit_form",
+      detailsAttribute: "data-geo"
+    });
+  }
+}
+
+function validateGeoAutocomplete(){
+
+  var geocoder = new google.maps.Geocoder();
+
+  $('#adv_location').focusin(function(){
+    $('#adv_location').css('border-color','none')
+    $('#adv_location').removeClass('failed')
+    $('.geo-complete-errors').html('')
+  })
+
+  $('#adv_location').focusout(function(){
+    var geo_val = $('#adv_location').val()
+    
+    geocoder.geocode( {"address": geo_val}, function(results, status) {
+
+      console.log(results)
+
+      if (results.length >= 1){
+        $('#adv_location').css('border-color','none')
+
+        if($('.img-responsive').length > 0){
+          $(".btn-primary").removeClass('disabled')
+        }
+      } else {
+        $('#adv_location').addClass('failed')
+        $('#adv_location').css('border-color','#a94442')
+        $('.geo-complete-errors').html('Please Geo-Complete the form')
+        $(".btn-primary").addClass('disabled')
+      }
+    })
+  });
+}
+
+function create_header_remove_arrow() {
+  if ($(window).width() > 780) {
+    $('.create_steps_header ul li i').addClass('fa fa-long-arrow-right');
+  }
+
+  if ($(window).width() <= 780) {
+    $('.create_steps_header ul').addClass('nav-stacked');
+    $('.create_steps_header ul li i').removeClass('fa fa-long-arrow-right');
+    $('.create_steps_header .nav').css({
+        paddingLeft: "0",
+        fontSize: "0.8em",
+        textAlign: "center"
+      });
+  }
+
+  $(window).resize(function() {
+    if ($(window).width() <= 780) {
+      $('.create_steps_header ul li i').removeClass('fa fa-long-arrow-right');
+      $('.create_steps_header ul').addClass('nav-stacked');
+      $('.create_steps_header .nav').css({
+        paddingLeft: "0"
+      });
+    } 
+    if ($(window).width() > 780) {
+      $('.create_steps_header ul li i').addClass('fa fa-long-arrow-right');
+      $('.create_steps_header ul').removeClass('nav-stacked')
+      $('.create_steps_header .nav').css({
+        paddingLeft: "40px"
+      });
+    } 
+  });
+}
+
+function request_form_maxlength(){
+  $('#request_form input.show_ml').maxlength({
+    alwaysShow: true,
+    warningClass: "label label-success",
+  });
+
+  $('#request_form textarea.show_ml').maxlength({
+    alwaysShow: true,
+    warningClass: "label label-success",
+  });
+
+}
+
+function request_form_geocomplete() {
+  $('#request_form #request_location').geocomplete();
+  $('#request_page_form #request_location').geocomplete();
+}
+
+function request_time_datepicker() {
+  var today = new Date();
+  var cur_day = today.getDate();
+  var cur_mon = today.getMonth()+1;
+  var cur_yr = today.getFullYear();
+
+  $('#request_reservation_date').datepicker({
+    format: "yyyy/mm/dd",
+    startDate: cur_yr+"/"+cur_mon+"/"+cur_day,
+    orientation: "auto right",
+    autoclose: true,
+    todayBtn: true,
+    todayHighlight: true
+  });
+
+  $('#payment_panel #request_reservation_date').datepicker({
+    format: "yyyy/mm/dd",
+    startDate: cur_yr+"/"+cur_mon+"/"+cur_day,
+    orientation: "auto right",
+    autoclose: true,
+    todayBtn: true,
+    todayHighlight: true
+  });
+}
+
+function request_time_timepicker() {
+  $('#request_reservation_time').timepicker({
+    'scrollDefault': 'now',
+    'timeFormat': 'h:i A',
+  });
+
+  $('#payment_panel #request_reservation_time').timepicker({
+    'scrollDefault': 'now',
+    'timeFormat': 'h:i A',
+  });
+}
+
+function request_time_validator() {
+  $('#request_time_form').bootstrapValidator({
+    fields: {
+      'request_reservation[date]': {
+        validators: {
+          notEmpty: {
+            message: 'Date is required'
+          }
+        }
+      },
+      'request_reservation[time]': {
+        validators: {
+          notEmpty: {
+            message: 'Time is required'
+          }
+        }
+      }
+    }
+  });
+
+  $('#request_time_form #request_reservation_date').change(function() {
+    var l1 = $.trim($(this).val());
+
+    $('#request_time_form #request_reservation_time').change(function() {
+      var l2 = $.trim($(this).val());
+
+      if (l1.length > 6 && l2.length > 5) {
+        $('#request_time_form .request_time_btn').removeClass('disabled');
+      }
+      else {
+        $('#request_time_form .request_time_btn').addClass('disabled');
+      }
+
+    });
+  });
+
+  $('#request_time_form #request_reservation_time').change(function() {
+    var l1 = $.trim($(this).val());
+
+    $('#request_time_form #request_reservation_date').change(function() {
+      var l2 = $.trim($(this).val());
+
+      if (l1.length > 5 && l2.length > 6) {
+        $('#request_time_form .request_time_btn').removeClass('disabled');
+      }
+      else {
+        $('#request_time_form .request_time_btn').addClass('disabled');
+      }
+
+    });
+  });
+
+}
+
+function request_form_validator() {
+  $('#request_form').bootstrapValidator({
+    fields: {
+      '#request_email': {
+        validators: {
+          notEmpty: {
+            message: 'Email is required and cannot be empty'
+          },
+          emailAddress: {
+            message: 'Not a valid email address'
+          }
+        }
+      },
+      'request[location]': {
+        validators: {
+          notEmpty: {
+            message: 'Destination is required and cannot be empty'
+          }
+        }
+      },
+      'request[description]': {
+        validators: {
+          notEmpty: {
+            message: 'Description is required and cannot be empty'
+          }
+        }
+      },
+      'request[dates]': {
+        validators: {
+          notEmpty: {
+            message: 'Date is required and cannot be empty'
+          }
+        }
+      },
+      'request[budget]': {
+        validators: {
+          notEmpty: {
+            message: 'Budget is required and cannot be empty'
+          }
+        }
+      }
+    }
+  });
+
+  $('#request_page_form').bootstrapValidator({
+    fields: {
+      '#request_email': {
+        validators: {
+          notEmpty: {
+            message: 'Email is required and cannot be empty'
+          },
+          emailAddress: {
+            message: 'Not a valid email address'
+          }
+        }
+      },
+      'request[location]': {
+        validators: {
+          notEmpty: {
+            message: 'Destination is required and cannot be empty'
+          }
+        }
+      },
+      'request[description]': {
+        validators: {
+          notEmpty: {
+            message: 'Description is required and cannot be empty'
+          }
+        }
+      },
+      'request[dates]': {
+        validators: {
+          notEmpty: {
+            message: 'Date is required and cannot be empty'
+          }
+        }
+      },
+      'request[budget]': {
+        validators: {
+          notEmpty: {
+            message: 'Budget is required and cannot be empty'
+          }
+        }
+      }
+    }
+  });
+}
+
+function advPhotoInput(){
+  $("#adv_cover_img").filestyle({input: false, icon: false, buttonText: "SET COVER IMAGE"});
+  $("#adv_gallery_img").filestyle({input: false, icon: false, buttonText: "SELECT GALLERY IMAGES"});
+}
+
+function upload_images() {
+  $('#adv_gallery_img').change(function() {
+    $('#loader-overlay').show(function() {
+
+      var uploadCount = $('#adv_gallery_img_upload input[type=file]').get(0).files.length;
+      var imageCount = $('#existing-image-count').text()
+      var maxLeft = 10 - imageCount
+
+      if(uploadCount > maxLeft){
+        $('#loader-overlay').hide();
+        $('#upload-error').show().html('you have selected '+"<strong>"+uploadCount+"</strong>"+ ' and only have '+"<strong>" + maxLeft +"</strong>"+' spots')
+        $('#adv_gallery_img_upload input[type=file]').get(0).value = ''
+
+      }else{
+        $('#adv_gallery_img_upload').submit();
+      }
+    });
+    
+  });
+} 
+
+function review_ratings_init() {
+  $("form#new_review #adv_rating_input").rating({
+    'min': 0,
+    'max': 5,
+    'step': 0.5,
+    'size': 'xs',
+    'showCaption': true,
+    'showClear': false,
+    'starCaptions': {
+      0.5: '0.5',
+      1: '1.0',
+      1.5: '1.5',
+      2: '2.0',
+      2.5: '2.5',
+      3: '3.0',
+      3.5: '3.5',
+      4: '4.0',
+      4.5: '4.5',
+      5: '5.0'
+    }
+  });
+
+  $("form#new_review #host_rating_input").rating({
+    'min': 0,
+    'max': 5,
+    'step': 0.5,
+    'size': 'xs',
+    'showCaption': true,
+    'showClear': false,
+    'starCaptions': {
+      0.5: '0.5',
+      1: '1.0',
+      1.5: '1.5',
+      2: '2.0',
+      2.5: '2.5',
+      3: '3.0',
+      3.5: '3.5',
+      4: '4.0',
+      4.5: '4.5',
+      5: '5.0'
+    }
+  });
+}
+
+function adv_index_rating_show() {
+  var adv_id;
+  var rating;
+  var adv_rating_show_id;
+  var adv_rating_value_id;
+  var num_of_adv = $('#adventure-partial input').length / 2;
+
+  var i = 0;
+
+  for(; i < num_of_adv; i++) {
+    adv_rating_show_id = "#adventure-partial input#adv_rating_show_"+i;
+    adv_rating_value_id = "#adventure-partial input#adv_rating_value_"+i;
+
+    //initialize
+    $(adv_rating_show_id).rating({
+      'min': 0,
+      'max': 5,
+      'step': 0.1,
+      'size': 'xs',
+      'readonly': true,
+      'showCaption': false,
+      'showClear': false
+    });
+
+    //update rating
+    rating = $(adv_rating_value_id).data('rating');
+
+    if(rating) {
+      $('.copy#'+i+" .star-rating").removeClass('no_ratings');
+      $(adv_rating_show_id).rating('update', rating);
+    }
+    else {
+      //Make it opaque if there are no ratings
+      $('.copy#'+i+" .star-rating").addClass('no_ratings');
+      $('.no_ratings').css('opacity','0.35');
+    }
+  }
+}
+
+function adv_browse_rating_show() {
+  var adv_id;
+  var rating;
+  var adv_rating_show_id;
+  var adv_rating_value_id;
+  var num_of_adv = $('#adventure_browse input').length / 2;
+
+  var i = 0;
+
+  for(; i < num_of_adv; i++) {
+    adv_rating_show_id = "#adventure_browse input#adv_rating_show_"+i;
+    adv_rating_value_id = "#adventure_browse input#adv_rating_value_"+i;
+
+    //initialize
+    $(adv_rating_show_id).rating({
+      'min': 0,
+      'max': 5,
+      'step': 0.1,
+      'size': 'xs',
+      'readonly': true,
+      'showCaption': false,
+      'showClear': false
+    });
+
+    //update rating
+    rating = $(adv_rating_value_id).data('rating');
+    $(adv_rating_show_id).rating('update', rating);
+
+    $('#similar .rating-xs').css('font-size','12px')
+  }
+}
+
+function adv_show_rating_show() {
+  var rating;
+  var adv_rating_show_id;
+
+  adv_rating_show_id = "#adventure-reviews-count input#adv_rating_show";
+
+  //initialize
+  $(adv_rating_show_id).rating({
+    'min': 0,
+    'max': 5,
+    'step': 0.1,
+    'size': 'xs',
+    'readonly': true,
+    'showCaption': false,
+    'showClear': false
+  });
+
+}
+
+function contact_form_validator() {
+  $('#contact_host_modal .modal-dialog .contact_btn').addClass('disabled');
+
+  //request adventure form validation on button
+  $('#contact_host_modal .modal-dialog #message_body').on('keyup', function() {
+    var details = $.trim($(this).val());
+
+      if (details.length > 6) {
+        $('#contact_host_modal .modal-dialog .contact_btn').removeClass('disabled');
+      }
+      else if (details.length <= 6) {
+        $('#contact_host_modal .modal-dialog .contact_btn').addClass('disabled');
+      }
+  })
+}
+
+//------------------FORM VALIDATORS------------------
+
+function form_validator(){
+  $('#adventure_edit_form').bootstrapValidator({
+    fields: {
+      'adventure[title]': {
+        validators: {
+          notEmpty: {
+            message: 'The title is required and cannot be empty'
+          }
+        }
+      },
+      'adventure[category]': {
+        validators: {
+          notEmpty: {
+            message: 'A category is required and cannot be empty'
+          }
+        }
+      },
+      'adventure[location]': {
+        validators: {
+          notEmpty: {
+            message: 'The location is required and cannot be empty'
+          }
+        }
+      },
+      'adventure[summary]': {
+        validators: {
+          notEmpty: {
+            message: 'The summary is required and cannot be empty'
+          }
+        }
+      },
+      'adventure[cap_min]': {
+        validators: {
+          notEmpty: {
+            message: 'Min req.'
+          },
+          integer: {
+            message: 'Int. req'
+          },
+          between: {
+            min: 1,
+            max: 50,
+            message: 'Invalid input'
+          }
+        }
+      },
+      'adventure[cap_max]': {
+        validators: {
+          notEmpty: {
+            message: 'Max req.'
+          },
+          integer: {
+            message: 'Int. req'
+          },
+          between: {
+            min: 1,
+            max: 50,
+            message: 'Invalid input'
+          }
+        }
+      },
+      'adventure[duration_num]': {
+        validators: {
+          notEmpty: {
+            message: 'Cannot be empty'
+          },
+          integer: {
+            message: 'Integer req.'
+          },
+          between: {
+            min: 1,
+            max: 100,
+            message: 'Invalid input'
+          }
+        }
+      },
+      'adventure[price]': {
+        validators: {
+          notEmpty: {
+            message: 'Cannot be empty'
+          },
+          integer: {
+            message: 'Integer req.'
+          },
+          greaterThan: {
+            value: 0,
+            message: 'Price cannot be 0'
+          }
+        }
+      },
+      'adventure[price_type]': {
+        validators: {
+          notEmpty: {
+            message: 'Please select price type'
+          }
+        }
+      },
+      'category[]': {
+        validators: {
+          notEmpty: {
+            message: 'Please select a category'
+          }
+        }
+      }
+    }
+  });
+
+  $('#adventure_iten_form').bootstrapValidator({
+    fields: {
+      'headline': {
+        validators: {
+          notEmpty: {
+            message: 'Event title cannot be empty'
+          }
+        }
+      },
+      'description': {
+        validators: {
+          notEmpty: {
+            message: 'Event description cannot be empty'
+          }
+        }
+      }
+    }
+  });
+
+  $('#add_cc_form').bootstrapValidator({
+    fields: {
+      'recipient[cardholders_name]': {
+        validators: {
+          notEmpty: {
+            message: 'Please enter credit card full name'
+          }
+        }
+      },
+      'recipient[credit_card_number]': {
+        validators: {
+          notEmpty: {
+            message: 'Please enter credit card number'
+          },
+          creditCard: {
+            message: 'Credit card number is invalid'
+          }
+        }
+      },
+      'recipient[cvv]': {
+        validators: {
+          notEmpty: {
+            message: 'Please enter credit card CVV'
+          },
+          cvv: {
+            message: 'CVV number is invalid'
+          }
+        }
+      },
+      'recipient[cc_exp_month]': {
+        validators: {
+          notEmpty: {
+            message: 'Please enter exp. month'
+          },
+          digits: {
+            message: 'Exp. month is invalid'
+          },
+          lessThan: {
+            value: 12,
+            inclusive: false,
+            message: 'Exp. month is invalid'
+          }
+        }
+      },
+      'recipient[cc_exp_year]': {
+        validators: {
+          notEmpty: {
+            message: 'Please enter exp. month'
+          },
+          integer: {
+            message: 'Exp. year is invalid'
+          }
+        }
+      }
+    }
+  });
+  $('#add_bank_form').bootstrapValidator({
+      fields: {
+        'recipient[bank_account_name]': {
+          validators: {
+            notEmpty: {
+              message: 'Please enter bank account holders full name'
+            }
+          }
+        },
+        'recipient[bank_routing_number]': {
+          validators: {
+            notEmpty: {
+              message: 'Please enter bank account routing number'
+            },
+            numeric: {
+              message: 'Routing number is invalid'
+            }
+          }
+        },
+        'recipient[bank_account_number]': {
+          validators: {
+            notEmpty: {
+              message: 'Please enter bank acount number'
+            },
+            numeric: {
+              message: 'Bank account number is invalid'
+            }
+          }
+        }
+      }
+    });
+  $('#change_bank_form').bootstrapValidator({
+      fields: {
+        'recipient[bank_account_name]': {
+          validators: {
+            notEmpty: {
+              message: 'Please enter bank account holders full name'
+            }
+          }
+        },
+        'recipient[bank_routing_number]': {
+          validators: {
+            notEmpty: {
+              message: 'Please enter bank account routing number'
+            },
+            numeric: {
+              message: 'Routing number is invalid'
+            }
+          }
+        },
+        'recipient[bank_account_number]': {
+          validators: {
+            notEmpty: {
+              message: 'Please enter bank acount number'
+            },
+            numeric: {
+              message: 'Bank account number is invalid'
+            }
+          }
+        }
+      }
+    });
+  $('#update_paypal_form').bootstrapValidator({
+    fields: {
+      'paypal_email': {
+        validators: {
+          emailAddress: {
+            message: 'Please enter a valid email address'
+          }
+        }
+      }
+    }
+  });
+  $('#add_paypal_form').bootstrapValidator({
+    fields: {
+      'paypal_email': {
+        validators: {
+          emailAddress: {
+            message: 'Please enter a valid email address'
+          }
+        }
+      }
+    }
+  });
+}
+
+function payment_modal_validator() {
+  $('#new_reservation').bootstrapValidator({
+    fields: {
+      'credit_card_name': {
+        validators: {
+          notEmpty: {
+            message: 'The CC Full Name is required and cannot be empty'
+          }
+        }
+      },
+      'credit_card_number': {
+        validators: {
+          notEmpty: {
+            message: 'The credit card number is required and cannot be empty'
+          },
+          creditCard: {
+            message: 'Invalid CC Number'
+          }
+        }
+      },
+      'cvv': {
+        validators: {
+          cvv: {
+            message: 'Invalid CVV Number'
+          }
+        }
+      },
+      'exp_month': {
+        validators: {
+          notEmpty: {
+            message: 'Please enter exp. month'
+          },
+          digits: {
+            message: 'Exp. month is invalid'
+          },
+          lessThan: {
+            value: 12,
+            inclusive: false,
+            message: 'Exp. month is invalid'
+          }
+        }
+      },
+      'exp_year': {
+        validators: {
+          notEmpty: {
+            message: 'Please enter exp. month'
+          },
+          integer: {
+            message: 'Exp. year is invalid'
+          }
+        }
+      }
+    }
+  });
+  $('form#request_reservation').bootstrapValidator({
+    fields: {
+      'credit_card_name': {
+        validators: {
+          notEmpty: {
+            message: 'The CC Full Name is required and cannot be empty'
+          }
+        }
+      },
+      'credit_card_number': {
+        validators: {
+          notEmpty: {
+            message: 'The credit card number is required and cannot be empty'
+          },
+          creditCard: {
+            message: 'Invalid CC Number'
+          }
+        }
+      },
+      'cvv': {
+        validators: {
+          cvv: {
+            message: 'Invalid CVV Number'
+          }
+        }
+      },
+      'exp_month': {
+        validators: {
+          notEmpty: {
+            message: 'Please enter exp. month'
+          },
+          digits: {
+            message: 'Exp. month is invalid'
+          },
+          lessThan: {
+            value: 12,
+            inclusive: false,
+            message: 'Exp. month is invalid'
+          }
+        }
+      },
+      'exp_year': {
+        validators: {
+          notEmpty: {
+            message: 'Please enter exp. month'
+          },
+          integer: {
+            message: 'Exp. year is invalid'
+          }
+        }
+      }
+    }
+  });
+}
+
+function subscription_payment_validation() {
+  $('#subscription_payment_form_1').bootstrapValidator({
+    fields: {
+      'credit_card_name': {
+        validators: {
+          notEmpty: {
+            message: 'Please enter credit card full name'
+          }
+        }
+      },
+      'credit_card_number': {
+        validators: {
+          notEmpty: {
+            message: 'Please enter credit card number'
+          },
+          creditCard: {
+            message: 'Credit card number is invalid'
+          }
+        }
+      },
+      'cvv': {
+        validators: {
+          notEmpty: {
+            message: 'Please enter credit card CVV'
+          },
+          cvv: {
+            message: 'CVV number is invalid'
+          }
+        }
+      },
+      'exp_month': {
+        validators: {
+          notEmpty: {
+            message: 'Please enter exp. month'
+          },
+          digits: {
+            message: 'Exp. month is invalid'
+          },
+          lessThan: {
+            value: 12,
+            inclusive: false,
+            message: 'Exp. month is invalid'
+          }
+        }
+      },
+      'exp_year': {
+        validators: {
+          notEmpty: {
+            message: 'Please enter exp. month'
+          },
+          integer: {
+            message: 'Exp. year is invalid'
+          }
+        }
+      }
+    }
+  });
+
+  $('#subscription_payment_form_2').bootstrapValidator({
+    fields: {
+      'redirect_url': {
+        validators: {
+          notEmpty: {
+            message: 'Please enter a redirect url'
+          }
+        }
+      },
+      'credit_card_name': {
+        validators: {
+          notEmpty: {
+            message: 'Please enter credit card full name'
+          }
+        }
+      },
+      'credit_card_number': {
+        validators: {
+          notEmpty: {
+            message: 'Please enter credit card number'
+          },
+          creditCard: {
+            message: 'Credit card number is invalid'
+          }
+        }
+      },
+      'cvv': {
+        validators: {
+          notEmpty: {
+            message: 'Please enter credit card CVV'
+          },
+          cvv: {
+            message: 'CVV number is invalid'
+          }
+        }
+      },
+      'exp_month': {
+        validators: {
+          notEmpty: {
+            message: 'Please enter exp. month'
+          },
+          digits: {
+            message: 'Exp. month is invalid'
+          },
+          lessThan: {
+            value: 12,
+            inclusive: false,
+            message: 'Exp. month is invalid'
+          }
+        }
+      },
+      'exp_year': {
+        validators: {
+          notEmpty: {
+            message: 'Please enter exp. month'
+          },
+          integer: {
+            message: 'Exp. year is invalid'
+          }
+        }
+      }
+    }
+  });
+}
+
+function sign_in_sign_up_modal() {
+  $('.sign-in-toggle').click(function(){
+    $(this).hide();
+    $('.sign-up-form').fadeOut();
+    $('.sign-up-toggle').fadeIn();
+    $('.sign-in-form').fadeIn();
+  })
+
+  $('.sign-up-toggle').click(function(){
+    $(this).hide();
+    $('.sign-in-form').fadeOut();
+    $('.sign-in-toggle').fadeIn();
+    $('.sign-up-form').fadeIn();
+  })
+
+}
+
+//----------------FULL CALENDAR & SCHEDULE RELATED FUNCTIONS ------------
+function FSInitialize(adventure_id) {
+  $('#calendar').fullCalendar({
+    defaultView: "agendaWeek",
+    height: 600,
+    eventDurationEditable: false,
+    eventStartEditable: true,
+    selectable: true,
+    allDaySlot: false,
+    timezone: 'UTC',
+    header: {
+      left: 'today prev,next',
+      center: 'title',
+      right: ''
+    },
+
+    //RENDER EXISTING BOOKING TIMES (blue: unreserved)
+    eventSources: [
+      {
+        url: '/events',
+        type: 'GET',
+        data: {
+          adventure_id: adventure_id
+        },
+        error: function(data) {
+          alert('Something went wrong!');
+        },
+        success: function() {
+        }
+      }
+    ],
+
+    //CREATE NEW EVENT
+    select: function(start, end) {
+
+      $.ajax({
+        url: "/events",
+        dataType: "JSON",
+        data: {adventure_id: adventure_id, start_time: start.utc().format(), end_time: end.utc().format()},
+        type: "POST",
+        success: function(data){   
+          $('#calendar').fullCalendar('renderEvent',data);
+        }
+      });
+    },
+
+    //DELETE AN EVENT
+    eventClick: function(event) {
+      var resp = confirm('Delete this event?');
+
+      if(resp == true) {
+        $.ajax({
+          url: "/events/"+event.id,
+          dataType: "JSON",
+          data: {},
+          type: "POST",
+          method: "DELETE",
+          success: function(data){   
+            $('#calendar').fullCalendar('removeEvents', event.id);
+          }
+        });
+      }
+    },
+
+    //UPDATE AN EVENT
+    eventDrop: function(event, revertFunc) {
+      $.ajax({
+        url: "/events/"+event.id,
+        dataType: "JSON",
+        data: {start: event.start.utc().format(), end: event.end.utc().format()},
+        type: "POST",
+        method: "PUT",
+        error: function(){   
+          revertFunc();
+        }
+      });
+    }
+  });
+}
+
+adventureSchedule = function(adventure_id) {
+  FSInitialize(adventure_id);
+}
+
+function setRatingStars(){
+  $(document).ready(function(){
+    $('#adventure-reviews-count .rating-xs').css('width','50%')
+    $('#adventure-reviews-count .rating-xs').css('float','right')
+    $('#adventure-reviews-count .rating-xs').css('text-align','left')
+  })
+}
+
+function capMaxValidation(){
+  $("#adv_cap_max").focusout(function(){
+    var minVal = $("#adv_cap_min").val()
+    var maxVal = $(this).val()
+
+    if ( parseInt(minVal) >= parseInt(maxVal)){
+      $('#adv_cap_max').val('')
+      $('#adv_cap_max').css('border-color','#a94442')
+      $('.cap-max-error').html('must be greater than min')
+      swal({
+        title: "Must be greater than Min",
+        imageUrl: "http://i.imgur.com/a6L0hYB.png"
+      });
+
+    } else {
+      $('.cap-max-error').html('')
+      $('#adv_cap_max').css('border-color','#3c763d')
+    }
+  });
+}
+
+function social_init(){
+  window.fbAsyncInit = function(){
+    FB.init({
+      appId: '210802829129036', status: true, cookie: true, xfbml: true }); 
+  };
+  
+  (function(d, debug){var js, id = 'facebook-jssdk', ref = d.getElementsByTagName('script')[0];if   (d.getElementById(id)) {return;}js = d.createElement('script'); js.id = id; js.async = true;js.src = "//connect.facebook.net/en_US/all" + (debug ? "/debug" : "") + ".js";ref.parentNode.insertBefore(js, ref);}(document, /*debug*/ false));
+  
+  function postToFeed(title, desc, url, image){
+  var obj = {method: 'feed',link: url, picture: image,name: title,description: desc};
+  
+  function callback(response){}
+    FB.ui(obj, callback);
+  }
+
+  $('.fb').click(function(e) {
+    e.preventDefault();
+
+    elem = $(this);
+
+    postToFeed(elem.data('title'), elem.data('desc'), elem.prop('href'), elem.data('image'))
+  })
+
+  $('.twitter').click(function(){
+    var encodedUrl = encodeURIComponent(document.URL);
+    height = $(window).height();
+    width = $(window).width();
+
+    window.open("https://twitter.com/share?url=" + 'www.advlo.com' + "&text=%23AdventureLocal - Check out this adventure on @Advlo_ - " + encodeURIComponent(document.URL), 'sharer', 'top=' + (height/3) + ',left=' + (width/3) + ',toolbar=0,status=0,width=' + 500 + ',height=' + 500);
+  })
+}
+
+function adv_create_new_basic_submit() {
+  $('#adv_basics .preview_btn').click(function() {
+    $('#adv_edit_submit_btn').click();
+  }) 
+
+  $('#adv_basics #adventure_attachment').change(function(){
+    $('#adv_basics .preview_btn').removeClass('disabled');
+    $('#adventure_image_form').submit();
+  }) 
+}
+
+function adv_map_show() {
+  //only show on non-mobile
+  if ($(window).width() > 780) {
+    $('#adv_map').show();
+  }
+  else {
+    $('#adv_map').hide();
+  }
+}
+
+function phone_num_validation() {
+  $('#new_phone_number_form .verify_phone_btn').addClass('disabled');
+
+  $('#new_phone_number_form #phone_number').on('keyup', function() {
+    var details = $.trim($(this).val());
+
+      if (details.length > 4) {
+        $('#new_phone_number_form .verify_phone_btn').removeClass('disabled');
+      }
+      else if (details.length <= 4) {
+        $('#new_phone_number_form .verify_phone_btn').addClass('disabled');
+      }
+  })
+
+  $('#update_phone_number_form .verify_phone_btn').addClass('disabled');
+
+  $('#update_phone_number_form #phone_number').on('keyup', function() {
+    var details = $.trim($(this).val());
+
+      if (details.length > 4) {
+        $('#update_phone_number_form .verify_phone_btn').removeClass('disabled');
+      }
+      else if (details.length <= 4) {
+        $('#update_phone_number_form .verify_phone_btn').addClass('disabled');
+      }
+  })
+}
+
+function summary_readmore() {
+  $('#overview .default-summary').readmore({
+    speed: 75,
+    maxHeight: 250
+  });
+}
+
+function waiverScripts() {
+  $('#upload-toggle').click(function(){
+    $(this).hide()
+    $('#upload_waiver').show()
+  })
+
+  $('#waiver_file').on('change', function(){
+    if($('#waiver_file').get(0).files.length == 1){
+      $('#loader-overlay').show();
+
+      $('#upload_waiver').submit()
+      $('#update_waiver').submit()
+    }
+  })
+
+  $("#waiver_file").filestyle({input: true, icon: true, buttonText: "UPLOAD WAIVER"});
+
+  $('#update_waiver_toggle').click(function(){
+    $(this).hide()
+    $('#update_waiver').show()
+
+    $('.waiver-btn').css('margin-left','35%')
+    $('#delete_wavier').css('text-align','center')
+  })
+
+  $('.agree-to-terms').find('input').click(function(){
+    if( $(this).is(":checked") == true){
+      $('.publish-adventure').removeClass('disabled')
+    } else {
+      $('.publish-adventure').addClass('disabled')
+    }
+  })
+}
+
+function signup_cookie(){
+  signinClick();
+
+  $(document).ready(function(){
+
+    if( $(window).width() > 400 ){
+      if((!$.cookie('signup') && (location.pathname.indexOf('adventures') == 1 || location.pathname.indexOf('blog') == 1) )){
+
+        setTimeout(function(){
+          $.cookie('signup', 'visited', { expires: 3, path: '/' });
+          $('#signup-please-modal').modal('show')
+        }, 13500);
+      }
+
+      $('.close').click(function(){
+        $('#signup-please-modal').modal('hide')
+      })
+    }
+  })
+}
+
+
+
+function signinClick(){
+  $('.sign_in').click(function(){
+    console.log('hi')
+    if ($(window).width() > 780) {
+      $('#member-modal').modal('hide');
+      $('#signup-please-modal').modal('hide')
+      $('.logged_out_dropdown_menu').show();          
+    }
+    else {
+      window.location.replace("/users/sign_in");
+    }
+  })
+}
+
+function payment_options_btns() {
+  //COMMISSION OPTION
+  $('#add-card').click(function(){
+    $('#add-card-form').fadeToggle();
+  });
+
+  $('.option_btn_1').click(function(){
+    $('.option_btn_2').removeClass('active')
+    $(this).toggleClass('active')
+    $('#add-paypal').removeClass('active')
+
+    $('#commission-tree').fadeToggle();
+    $('#subscription-tree').hide();
+
+    if($(window).width() < 500){
+      $(this).find('.pricing-bottom').slideToggle()
+      $('.pricing-bottom').last().hide()
+    }
+  })
+  
+  //SUBSCRIBE OPTION
+  $('.option_btn_2').click(function(){
+    $('.option_btn_1').removeClass('active')
+    $(this).toggleClass('active')
+    $('#add-bank').removeClass('active')
+
+    $('#commission-tree').hide();
+    $('#subscription-tree').fadeToggle();
+
+    if($(window).width() < 500){
+      $(this).find('.pricing-bottom').slideToggle()
+      $('.pricing-bottom').first().hide()
+    }
+  })
+
+
+  $('.btn').hover(function(){
+    $(this).find('.pricing-top').css('background','rgba(0,0,0,1)')
+  },function(){
+    $(this).find('.pricing-top').css('background','rgba(0,0,0,0.9)')
+  })
+}
+
+
+function paypal_or_bank_toggle(){
+  // bank 
+  $('#add-bank').click(function(){    
+    $('.alert').hide()
+    $('#add-paypal').removeClass('active')
+    $(this).toggleClass('active')
+    
+    $('#updated-bank-form').fadeToggle();
+    $('#add-bank-form').fadeToggle();
+
+    $('#change_bank_form').hide()
+    $('#update_paypal_form').hide()
+    $('#existing-paypal').hide();
+    $('#add_paypal_form').hide();
+  });
+
+  // paypal
+  $('#add-paypal').click(function(){
+    $('.alert').hide()
+    $('#add-bank').removeClass('active')
+    $(this).toggleClass('active')
+
+    $('#existing-paypal').fadeToggle();
+    $('#add_paypal_form').fadeToggle();
+
+    $('#updated-bank-form').hide();
+    $('#change_bank_form').hide()
+    $('#update_paypal_form').hide()
+    $('#add-bank-form').hide();
+  });
+
+  $('#change_paypal_btn').click(function() {
+    $('#update_paypal_form').show();
+  })
+
+  $('#update_paypal_btn').click(function() {
+    //Verify email field is not empty
+    $('#update_paypal_form').submit();
+  })
+
+  $('#add_paypal_btn').click(function() {
+    $('#add_paypal_form').submit();
+  })
+
+  $('.option_2_well .subscribe_btn_1').click(function(){
+    $(this).toggleClass('active');
+    $('.option_2_well .subscribe_btn_2').removeClass('active');
+    $('.option_2_well #subscription_payment_form_2').hide();
+    $('.option_2_well #subscription_payment_form_1').fadeToggle();
+  })
+
+  $('.option_2_well .subscribe_btn_2').click(function(){
+    $(this).toggleClass('active');
+    $('.option_2_well .subscribe_btn_1').removeClass('active');
+    $('.option_2_well #subscription_payment_form_1').hide();
+    $('.option_2_well #subscription_payment_form_2').fadeToggle();
+  })
+}
+
+function getStripeToken_subscription() {
+  $('.option_2_well #subscription_payment_form_1 .subscribe_btn').click(function() {
+
+    var card = {
+      number:   $(".option_2_well #subscription_payment_form_1 #credit_card_number").val(),
+      expMonth: $(".option_2_well #subscription_payment_form_1 #exp_month").val(),
+      expYear:  $(".option_2_well #subscription_payment_form_1 #exp_year").val(),
+      cvc:      $(".option_2_well #subscription_payment_form_1 #cvv").val()
+    };
+
+    Stripe.setPublishableKey($('meta[name="stripe-key"]').attr('content'))    
+    Stripe.card.createToken(card, function(status, response) {
+
+      if (status === 200) {
+        $(".option_2_well #subscription_payment_form_1 #stripe_token").val(response.id);
+        
+        $('.option_2_well #subscription_payment_form_1').submit();
+      } else {
+        $("#stripe-error-message").text(response.error.message);
+      }
+    });
+
+    return false;
+  });
+
+  $('.option_2_well #subscription_payment_form_2 .subscribe_btn').click(function() {
+
+    var card = {
+      number:   $(".option_2_well #subscription_payment_form_2 #credit_card_number").val(),
+      expMonth: $(".option_2_well #subscription_payment_form_2 #exp_month").val(),
+      expYear:  $(".option_2_well #subscription_payment_form_2 #exp_year").val(),
+      cvc:      $(".option_2_well #subscription_payment_form_2 #cvv").val()
+    };
+
+    Stripe.setPublishableKey($('meta[name="stripe-key"]').attr('content'))    
+    Stripe.card.createToken(card, function(status, response) {
+
+      if (status === 200) {
+        $(".option_2_well #subscription_payment_form_2 #stripe_token").val(response.id);
+        
+        $('.option_2_well #subscription_payment_form_2').submit();
+      } else {
+        $("#stripe-error-message").text(response.error.message);
+      }
+    });
+
+    return false;
+  });
+}
+
+function cancel_subscription() {
+  $('.subscribed_well .cancel_link').click(function(){
+    $('.subscribed_well .cancel_subscription_btn').css({
+      margin: "10px auto 0px auto",
+      opacity: '0.8',
+      width: '45%'
+    })
+    $('.subscribed_well .cancel_subscription_btn').fadeToggle();
+    // $('.subscribed_well .cancel_subscription_btn .fa').css({
+    //   color: '#FFF'
+    // });
+  })
+
+  $('.subscribed_well .cancel_subscription_btn').click(function() {
+    var adv_id = $(this).data('adventure-id');
+    var host_id = $(this).data('host-id');
+
+    swal({     
+      title: "Are you sure you want to cancel your subscription?",  
+      showCancelButton: true,
+      imageUrl: "http://i.imgur.com/a6L0hYB.png"
+    }, 
+    function() {
+      $.ajax({
+        url: "/adventure_steps/payment",
+        dataType: "script",
+        data: {subscription: "1", adventure_id: adv_id, host_id: host_id, cancel_subscription: true},
+        type: "POST",
+        method: "PUT"
+      })
+    });
+
+  })
+}
+
+function swal_delete_adventure() {
+  
+  $('#d_user_dashboard .delete_btn').click(function(){
+    var adv_id = $(this).data('adv-id');
+
+    swal({     
+      title: "Are you sure?",  
+      showCancelButton: true,
+      imageUrl: "http://i.imgur.com/a6L0hYB.png"
+    }, 
+    function() {
+      $.ajax({
+        url: '/adventures/'+adv_id,
+        dataType: "script",
+        method: 'DELETE',
+        type: "POST"
+      })
+    });
+  })
+}
+
+adventureShow = function() {
+  setRatingStars();
+  galleryMasonry();
+  sizeSidebar();
+  navigationBreadcrumbs();
+  adventureScroll();
+  centerGuideImage();
+  toggleItineraryItemsAndArrows()
+  adventureShowHover();
+  payment_modal_validator();
+  request_time_validator();
+  request_time_datepicker();
+  request_time_timepicker();
+  adv_show_rating_show();
+  contact_form_validator();
+  sign_in_sign_up_modal();
+  social_init();
+  adv_map_show();
+  summary_readmore();
+  host_contact_validator();
+};
+
+adventureIndex = function() {
+  positionLocationText();
+  masonrySetup();
+  heroScroll();
+  adventureHover();
+  centerProfileImage();
+  highlightFilters();
+  request_form_maxlength();
+  request_form_validator();
+  input_popover();
+  request_form_geocomplete();
+  adv_index_rating_show();
+}
+
+adventureCreate = function() {
+  waiverScripts()
+  validateGeoAutocomplete()
+  capMaxValidation();
+  advPhotoInput();
+  input_popover();
+  input_datepicker();
+  input_maxlength();
+  create_tabs();
+  form_validator();
+  show_change_bank_form();
+  input_geocomplete();
+  create_header_remove_arrow();
+  upload_images();
+  adv_create_new_basic_submit();
+  phone_num_validation();
+  payment_options_btns();
+  paypal_or_bank_toggle();
+  subscription_payment_validation();
+  cancel_subscription();
+}

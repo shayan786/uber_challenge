@@ -1,0 +1,115 @@
+- set_meta_tags(default_meta_tags)
+
+#adventure_create
+  .container
+    = render partial: "adv_create_header"
+    #adv_basics
+      .panel.panel-default
+        .panel-heading.text-center.section_header
+          BASICS
+        .panel-body
+          = render partial: "adventure_steps/notice"
+
+          %form{"accept-charset" => "UTF-8", action: "/adventures", method: "post", id: "adventure_edit_form", enctype: "multipart/form-data"}
+            = tag(:input, :type => "hidden", :name => request_forgery_protection_token.to_s, :value => form_authenticity_token)
+            = tag(:input, :type => "hidden", :name => "adventure[region]", id: "adv_region", "data-geo" => "country_short")
+            = tag(:input, :type => "hidden", :name => "adventure_id", id: "adv_id")
+
+            .form-group.row
+              .col-md-4
+                .form_label.edit-label Title *
+              .col-md-6
+                %input.form-control.show_ml{type: "text", name: "adventure[title]", id: "adv_name", value: "", maxlength: "40", :data => {:container => "body", :toggle => "popover", :placement => "right", :content => "Ex: Climbing in Eldorado Canyon"}}
+            .form-group.row
+              .col-md-4
+                .form_label.edit-label Location *
+              .col-md-6
+                %input.form-control.show_ml{type: "text", name: "adventure[location]", placeholder: "", id: "adv_location", value: "", maxlength: "75", :data => {:container => "body", :toggle => "popover", :placement => "right", :content => "Write the specific adventure location. Ex: Vail, CO"}}
+                .geo-complete-errors
+                
+            .row
+              .col-md-4
+              .col-md-6
+                .location_map
+            .form-group.row
+              .col-md-4
+                .form_label.edit-label Summary *
+              .col-md-6
+                %textarea.form-control.show_ml{rows: "7", type: "text", name: "adventure[summary]", id: "adv_summary", value: "", maxlength: "2000", :data => {:container => "body", :toggle => "popover", :placement => "right", :content => "Market your adventure with an informative and detailed summary of what you’re offering"}}
+            .form-group.row
+              .col-md-4
+                .form_label.edit-label Capacity *
+              .col-md-1
+                %input.form-control{type: "text", name: "adventure[cap_min]", id: "adv_cap_min", value: ""}
+                .text-center Min
+              .col-md-1
+                %input.form-control{type: "text", name: "adventure[cap_max]", id: "adv_cap_max", value: "", min: 1, max: 101, :data => {:container => "body", :toggle => "popover", :placement => "right", :content => "How many people can you reasonably host while offering a great experience?"}}
+                .text-center Max
+                .cap-max-error
+            .form-group.row
+              .col-md-4
+                .form_label.edit-label Duration *
+              .col-md-1
+                %input.form-control{type: "text", name: "adventure[duration_num]", id: "adv_duration_num", value: "", :data => {:container => "body", :toggle => "popover", :placement => "top", :content => "Approximate duration"}}
+                
+              .col-md-2
+                %select.form-control{name: "adventure[duration_type]", id: "adv_duration_type"}
+                  %option Hours
+                  %option Minutes
+                  %option Days
+            .form-group.row
+              .col-md-4
+                .form_label.edit-label Price *
+              .col-md-2
+                .input-group
+                  %span.input-group-addon
+                    $
+                  %input.form-control{type: "text", name: "adventure[price]", id: "adv_price", value: ""}
+                  %span.input-group-addon
+                    USD
+              .col-md-3
+                %label.radio-inline
+                  %input{type: "radio", name: "adventure[price_type]", id: "adv_price_type", value: "per_person"}
+                    Per Person
+                %label.radio-inline
+                  %input{type: "radio", name: "adventure[price_type]", id: "adv_price_type", value: "per_adventure"}
+                    Per Group
+            .form-group.row
+              .col-md-4
+                .form_label.edit-label Categories *
+              .col-md-6
+                - options = adv_categories
+                - options.each do |o|
+                  %label.checkbox-inline
+                    %input{type: "checkbox", id: o.downcase, value: o.downcase, name: 'category[]'}
+                    = o
+
+            .form-group.row
+              .col-md-4
+                .form_label.edit-label Additional Info
+              .col-md-6
+                %textarea.form-control.show_ml{placeholder: "(Optional)", rows: "5", type: "text", name: "adventure[other_notes]", id: "adv_other_notes", value: "", maxlength: "2000", :data => {:container => "body", :toggle => "popover", :placement => "right", :content => "Ex: Things to bring, whats not included, detailed directions, etc."}}
+
+            .form-group.row
+              .col-md-4
+                .form_label.edit-label Youtube or Vimeo video url
+              .col-md-6
+                %input.form-control.show_ml{type: "text", name: "adventure[video_url]", placeholder: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',id: "adv_video_url", value: "#{@adventure.video_url}", maxlength: "75", :data => {:container => "body", :toggle => "popover", :placement => "right", :content => "Input a Youtube or Vimeo video URL that highlights your adventure"}}
+
+            %input{type: "submit", style: "display: none;", id: "adv_edit_submit_btn"}
+
+          %form{"accept-charset" => "UTF-8", action: "/adventures", method: "post", id: "adventure_image_form", enctype: "multipart/form-data", "data-remote" => "true"}
+            = tag(:input, :type => "hidden", :name => request_forgery_protection_token.to_s, :value => form_authenticity_token)
+            .form-group
+              .col-md-4
+                .form_label.edit-label Main Adventure Image *
+              .col-md-6
+                %input.filestyle{type: "file", name: "adventure[attachment]", id: "adventure_attachment"}
+                %em Please choose one high quality, large square photo (.png or .jpg)
+
+        .panel-footer.text-center
+          .btn.btn-primary.preview_btn.disabled
+            NEXT
+                
+:javascript
+  adventureCreate();

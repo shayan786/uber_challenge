@@ -1,0 +1,66 @@
+#request_form_modal.modal.fade{role: "dialog"}
+  .modal-dialog
+    .modal-content
+      .modal-header.text-center
+        Request an Adventure — We'll Find You a Host
+      .modal-body
+        %form{"accept-charset" => "UTF-8", action: "/adventures/requests", method: "POST", id: "request_form", "data-remote" => "true"}
+          = tag(:input, :type => "hidden", :name => request_forgery_protection_token.to_s, :value => form_authenticity_token)
+          .form-group.row
+            .col-md-4 
+              .form_label.edit-label Location *
+            .col-md-6
+              %input.form-control{type: "text", name: "request[location]", id: "request_location", placeholder: "Enter a destination. Ex: Denver, CO"}
+          .form-group.row
+            .col-md-4 
+              .form_label.edit-label Category *
+            .col-md-6
+              - options = adv_categories
+              - options.each do |o|
+                %label.checkbox-inline
+                  %input{type: "checkbox", id: o.downcase, value: o.downcase, name: 'request_category[]'}
+                  = o
+          .form-group.row
+            .col-md-4 
+              .form_label.edit-label Dates *
+            .col-md-6
+              %textarea.form-control{rows: "2", type: "text", name: "request[dates]", id: "request_dates", maxlength: "250", placeholder: "Ex: 8/24/14 or any Saturday in November"}
+          .form-group.row
+            .col-md-4 
+              .form_label.edit-label Description / Details *
+            .col-md-6
+              %textarea.form-control{rows: "5", type: "text", name: "request[description]", id: "request_description", maxlength: "250"}
+          .form-group.row
+            .col-md-4 
+              .form_label.edit-label Budget/person *
+            .col-md-6
+              %input.form-control{type: "text", name: "request[budget]", id: "request_budget", placeholder: "$50 - $100"}
+          
+          - if current_user
+            = tag(:input, :type => "hidden", :name => "request[email]", :value => current_user.email )
+
+          - else
+            .form-group.row
+              .col-md-4 
+                .form_label.edit-label Email *
+              .col-md-6
+                %input.form-control{type: "text", name: "request[email]", id: "request_email", maxlength: "40"}
+
+          .row.text-center
+            %input.btn.btn-primary.request_btn.disabled{type: "submit", value: "Request Adventure"}
+
+        #request_submitted
+          .row
+            .col-md-10.col-md-offset-1
+              = image_tag "icons/request_icon.png", class: "img-responsive"
+              .adv-request-text.text-center{style: 'margin-top: 20px;'}
+                Don’t worry — Advlo knows someone.
+                %br
+                We’ll contact you once we find a qualified host for your adventure.
+
+:javascript
+  $('#request_form').submit(function(e){
+    e.preventDefault()
+    $(this).submit()
+    return false;
+  })

@@ -1,0 +1,88 @@
+- if @adventure
+  .panel.panel-default
+    .panel-heading.create_steps_header
+      %ul.nav.nav-pills
+        - if params[:id] == "basic" || controller.action_name == "new"
+          %li.active 
+            %a{href: "/adventure_steps/basic?adventure_id=#{@adventure.id}"}
+              BASICS
+        - else
+          %li 
+            %a{href: "/adventure_steps/basic?adventure_id=#{@adventure.id}"}
+              BASICS
+        %li
+          %i.fa.fa-long-arrow-right
+        - if params[:id] == "photos"
+          %li.active 
+            %a{href: "/adventure_steps/photos?adventure_id=#{@adventure.id}"}
+              PHOTOS
+        - else
+          - if !@adventure.title.nil?
+            %li
+              %a{href: "/adventure_steps/photos?adventure_id=#{@adventure.id}"}
+                PHOTOS
+          - else 
+            %li.disabled
+              %a{href: "#"}
+                PHOTOS
+        %li
+          %i.fa.fa-long-arrow-right
+        - if params[:id] == "itinerary"
+          %li.active 
+            %a{href: "/adventure_steps/itinerary?adventure_id=#{@adventure.id}"}
+              ITINERARY
+        - else
+          - if !@adventure.adventure_gallery_images.empty?
+            %li 
+              %a{href: "/adventure_steps/itinerary?adventure_id=#{@adventure.id}"}
+                ITINERARY
+          - else 
+            %li.disabled
+              %a.disabled{href: "#"}
+                ITINERARY
+        %li
+          %i.fa.fa-long-arrow-right
+        - if params[:id] == "schedule"
+          %li.active 
+            %a{href: "/adventure_steps/schedule?adventure_id=#{@adventure.id}"}
+              SCHEDULE
+        - else
+          - if !@adventure.adventure_gallery_images.empty?
+            %li 
+              %a{href: "/adventure_steps/schedule?adventure_id=#{@adventure.id}"}
+                SCHEDULE
+          - else
+            %li.disabled
+              %a{href: "#"}
+                SCHEDULE
+        %li
+          %i.fa.fa-long-arrow-right
+        - if params[:id] == "payment"
+          %li.active 
+            %a{href: "/adventure_steps/payment?adventure_id=#{@adventure.id}"}
+              PAYOUT
+        - else
+          - if !@adventure.adventure_gallery_images.empty?
+            %li 
+              %a{href: "/adventure_steps/payment?adventure_id=#{@adventure.id}"}
+                PAYOUT
+          - else 
+            %li.disabled
+              %a{href: "#"}
+                PAYOUT
+        %li
+          %i.fa.fa-long-arrow-right
+        - if params[:id] == "publish"
+          %li.active 
+            %a{href: "/adventure_steps/publish?adventure_id=#{@adventure.id}"}
+              PUBLISH
+        - else
+          - if !@adventure.adventure_gallery_images.empty? && (@adventure.users.first.stripe_recipient_id || @adventure.users.first.paypal_email || @adventure.is_subscribed_and_has_redirect_url?)
+            %li 
+              %a{href: "/adventure_steps/publish?adventure_id=#{@adventure.id}"}
+                PUBLISH
+          - else
+            %li.disabled
+              %a{href: "#"}
+                PUBLISH
+                

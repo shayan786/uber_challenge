@@ -1,0 +1,345 @@
+- render partial: 'info_seo_tags'
+
+#adventure_info
+  - if params[:invite] == 'hostel' && !current_user
+    - image = @hero_image ? @hero_image.attachment.url(:hero) : "background/partner.jpg"
+    .jumbotron{:style => "background-image: url(#{image_path image})"}
+      .container
+        .row.text-center
+          .col-md-8.host_info_text.col-md-offset-2
+            Get paid to promote local adventures & get more hostel bookings
+
+        .row.text-center
+          .col-md-6.col-md-offset-3
+            = render partial: 'devise/registrations/partner_signup', locals: {referrer: @referrer }
+            .invited-by="You have been invited by: #{@referrer.email}"
+
+    .adventure_info_body
+      .white_background
+        %h2
+          Why become a partner Hostel?
+        .body_content
+          .why-container
+            ="- Sell your hostel's adventure activities"
+          .why-container
+            ="- Earn money by inviting local adventure guides"
+          .why-container
+            ="- Promote your hostel to a global network of travelers"
+          .why-container
+          
+
+  - else  
+    - image = @hero_image ? @hero_image.attachment.url(:hero) : "background/advlo_surfers2.jpg"
+    .jumbotron{:style => "background-image: url(#{image_path image})"}
+      .container
+        .row.text-center
+          .col-md-8.host_info_text.col-md-offset-2
+            Connect with travelers, promote your trips, and sell the adventures you create
+
+        .row.text-center
+          .col-md-6.col-md-offset-3
+            %a.btn.btn-primary.adv_info_btn{href: "/adventures/create_prefill"} LIST YOUR ADVENTURE
+
+    .adventure_info_body
+      .white_background
+        .row.host_header
+          WHO WE'RE LOOKING FOR
+        .host_type
+          Advlo Hosts are skilled adventurers, local guides, and outdoor professionals who create unique travel experiences to share with others. Advlo carefully vets all Hosts for quality and safety.
+          
+        .row
+          .adventure-container.adventure-container-homepage
+            .brick-wrapper
+              - @adventures.each_with_index do |adv, i|
+                .adv-info-wrapper
+                  %div.adventure-brick{:itemscope => true, :itemtype => "http://schema.org/Thing"}
+                    %a{href: adventure_path(adv.slug), itemprop: 'url'}
+                      - if adv.attachment.height(:large) >= 300
+                        - adv_img = adv.attachment.url(:large)
+                      - else
+                        - adv_img = adv.attachment.url(:hero)
+                      .rich-snippet{itemprop: 'image', src: adv.attachment.url(:thumb)}
+                      .image-wrapper{style: "background: url('#{adv_img}') no-repeat center center;"}
+                        .copy{id: "#{i}"}
+                          - if adv.title.length > 38
+                            .title{itemprop: 'name'}= "#{adv.title[0..36]}..."
+                          -else
+                            .title{itemprop: 'name'}= adv.title
+
+                          .location{itemprop: 'description'}= get_display_location(adv)
+                          
+                          .host_name= "With #{adv.host_name}"
+
+                        .hover-block{id: i}
+                          .guide-image
+                            .image-wrapper{style: "background: url('#{adv.users.first.get_avatar_url('profile')}') no-repeat center center;"}
+                          
+                        .copy-container{class: "copy-#{i}"}
+        
+                  .view-profile
+                    =link_to "View #{adv.host_name}'s profile", user_path(adv.users.first.to_param)
+
+  .adventure_info_body
+    .gray_background
+      .container
+        .row.host_header{style: "margin-bottom: 20px;"}
+          Features
+         
+        .access-block
+          .row.matrix_header
+            .fa.fa-cc-visa
+            Online Transactions
+          .row.matrix_content
+            Advlo handles all payments ensuring you get paid on time
+
+        / .access-block
+        /   .row.matrix_header
+        /     Customer Support
+        /   .row.matrix_content
+        /     Our customer loyalty team is always just a click away to assist you
+
+        .access-block
+          .row.matrix_header
+            .fa.fa-comments-o
+            Direct Messaging
+          .row.matrix_content
+            Communicate with travelers interested in booking your trips
+
+        .access-block
+          .row.matrix_header
+            .fa.fa-file-image-o
+            Custom Pages
+          .row.matrix_content
+            Web pages for your host profile and each of your adventures
+
+        .access-block
+          .row.matrix_header
+            .fa.fa-star-half-o
+            Reviews / Ratings
+          .row.matrix_content
+            Build a reputation and leverage links to exisiting traveler reviews
+
+        .access-block
+          .row.matrix_header
+            .fa.fa-search
+            SEO & online visibility
+          .row.matrix_content
+            SEO, web hosting, & keyword marketing to bring you more traffic
+
+        .access-block
+          .row.matrix_header
+            .fa.fa-money
+            Payout Options
+          .row.matrix_content
+            Choose either direct bank deposit or PayPal payouts
+
+        .access-block
+          .row.matrix_header
+            .fa.fa-retweet
+            Booking Requests
+          .row.matrix_content
+            Accept or decline booking requests based on your availability
+
+
+        / .access-block
+        /   .row.matrix_header
+        /     1-Click Listing
+        /   .row.matrix_content
+        /     Post once & your adventure is active until you turn it off
+
+        .access-block
+          .row.matrix_header
+            .fa.fa-copy
+            UNLIMITED Listings
+          .row.matrix_content
+            Easily manage all your adventures with one account
+
+        / .access-block
+        /   .row.matrix_header
+        /     Cancellation Policy
+        /   .row.matrix_content
+        /     Cancel when necessary and we’ll refund appropriately
+
+        .access-block
+          .row.matrix_header
+            .fa.fa-mobile
+            Mobile Friendly
+          .row.matrix_content
+            Manage adventures & reservations from your mobile device
+
+        .access-block
+          .row.matrix_header
+            .fa.fa-facebook-square
+            Social media tools
+          .row.matrix_content
+            Send your listing to Facebook, Twitter & Google+ in one click
+            
+        .access-block
+          .row.matrix_header
+            .fa.fa-calendar
+            Scheduling
+          .row.matrix_content
+            Offer instant booking times for immediate reservations
+
+        .access-block
+          .row.matrix_header 
+            .fa.fa-envelope
+            Email Alerts
+          .row.matrix_content
+            Get notifications when you receive a booking or direct message
+
+      .with_membership_features
+        .row.text-center
+          .host_sub_header
+            With Membership
+
+        .container
+          .access-block.access-block-membership
+            .row.matrix_header
+              .fa.fa.fa-copy
+              Unlimited Listings
+            .row.matrix_content
+              0% commission on any of your adventures
+
+          .access-block.access-block-membership
+            .row.matrix_header
+              .fa.fa-thumb-tack
+              Higher Listing Position
+            .row.matrix_content
+              Your adventures will be featured at the top of the list when searched
+
+          .access-block.access-block-membership
+            .row.matrix_header
+              .fa.fa-share-square-o
+              Optional Redirect URL
+            .row.matrix_content
+              Redirect the traveler to your own booking & reservations system or use Advlo's
+
+
+
+      .row.pricing-row
+        .row.host_header
+          Pricing
+        .col-md-4.col-md-offset-1
+          .matrix_header.price-title COMMISSION
+          .matrix_content
+            .display_percent $0 + 15%
+            ADVLO COMMISSION
+            %br
+            ON BOOKINGS
+
+        .col-md-2.text-center
+          .or_text
+            OR
+        .col-md-4
+          .matrix_header.price-title MEMBERSHIP
+          .matrix_content
+            .display_percent $49 + 0%
+            = 'PER MONTH /'
+            %br
+            ZERO COMMISSION
+
+  .adventure_info_body
+    .gray_background
+      .container.itinerary-wrapper.hosting_info_itineraries
+        .row.host_header
+          FAQ 
+
+        .copy-brick.itinerary-brick
+          .fa.fa-plus
+          .fa.fa-minus
+          .headline
+            How do I create a listing?
+          .description
+            Create an
+            %a{href: '/users/sign_up'}account
+            and complete your host profile, then click 'Host an Adventure'. From there you will be able to start building your adventure.
+
+        .copy-brick.itinerary-brick
+          .fa.fa-plus
+          .fa.fa-minus
+          .headline
+            How do payments work?
+          .description
+            We accept global credit card payments through
+            %a{href: 'https://stripe.com/global', target: '_blank'}
+              Stripe's
+            secure processing framework which is PCI compliant.
+            Payouts are either direct bank deposit
+            or via
+            %a{href: 'https://www.paypal.com/webapps/mpp/country-worldwide', target: '_blank'} PayPal. Payouts will be triggered at the end of each week for all of your completed bookings.
+
+
+        .copy-brick.itinerary-brick
+          .fa.fa-plus
+          .fa.fa-minus
+          .headline
+            Can I use my own transaction system?
+          .description
+            If you prefer to manage transactions on your own site or in person but still want the front-end tools and benefits of being part of the Advlo community, choose the membership plan and have access to re-direct to your own link.
+
+        / .copy-brick.itinerary-brick
+        /   .fa.fa-plus
+        /   .fa.fa-minus
+        /   .headline
+        /     Do I need a permit to offer trips?
+        /   .description
+        /     We review every adventure & vet hosts thorougly before we approve adventures. As a host you agree that you are legally able to operate your activity in the location. Please review our
+        /     %a{href: 'http://www.advlo.com/terms'} Terms of Service.
+
+        .copy-brick.itinerary-brick
+          .fa.fa-plus
+          .fa.fa-minus
+          .headline
+            What if I receive a booking request but can't make it?
+          .description
+            You have the option to decline any booking requests and directly message the traveler to reschedule. If the transaction has already happened, you can cancel the booking in your dashboard and we will handle the traveler refund. 
+
+
+  .adventure_info_body
+    .gray_background
+      .video-container
+        .row.host_header Getting started
+        .embed-container
+          %iframe{:allowfullscreen => "", :frameborder => "0", :mozallowfullscreen => "", :src => "https://player.vimeo.com/video/104138173?title=0&portrait=0", :webkitallowfullscreen => ""}
+
+    .border
+    .gray_background
+      .container
+  
+
+    #host-signup-bottom{style: 'background-image: none; background-color: rgba(0,0,0,0.8)'}
+      .row.text-center
+        .col-md-6.col-md-offset-3
+          - if params[:invite]
+            .join-text Become a partner
+            = render partial: 'devise/registrations/partner_signup', locals: {referrer: @referrer }
+          - else
+            %a.btn.btn-primary.adv_info_btn{href: "/adventures/create_prefill", style: 'margin-bottom: 15px;'} LIST YOUR ADVENTURE
+
+
+:javascript 
+  var start_src = "https://player.vimeo.com/video/104138173?title=0&portrait=0&byline=0&badge=0&autoplay=1";
+  var stop_src = ""
+
+  // On show play video
+  $('#video-modal').on('show.bs.modal', function(e) {
+    console.log('show')
+    $(this).find('iframe').attr('src',start_src);
+  })
+
+  // On hide stop video
+  $('#video-modal').on('hide.bs.modal', function(e) {
+    console.log('hide')
+    $(this).find('iframe').attr('src',stop_src);
+  })
+
+
+  $('.view-profile a').hover(function(){
+    $(this).parent().parent().find($('.hover-block')).fadeIn()
+  }, function(){
+    $(this).parent().parent().find($('.hover-block')).fadeOut()
+  })
+
+  toggleItineraryItemsAndArrows();
+  $('.itinerary-brick').first().click()
